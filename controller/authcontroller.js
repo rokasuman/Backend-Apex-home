@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import sendEmail from "../utlis/sendEmail.js";
 import validator from "validator";
 import jwt from "jsonwebtoken";
+import crypto from "crypto"
+
 
 export const registration = async (req, res) => {
   try {
@@ -87,6 +89,7 @@ export const registration = async (req, res) => {
   }
 };
 
+
 //api to login
 export const login = async (req, res) => {
   try {
@@ -148,9 +151,13 @@ export const login = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error);
-  }
-};
+  console.log(error);
+  return res.status(500).json({
+    success: false,
+    message: "Server error",
+  });
+}
+}
 
 //get the userProfile
 export const getMe = async (req, res) => {
@@ -173,3 +180,164 @@ export const getMe = async (req, res) => {
     });
   }
 };
+
+//verify the email
+export const verifyEmail = async (req,res)=>{
+  
+  try {
+    const{email,code} = req.body;
+    if(!email || !code){
+      return res.status(400).json({
+        success:false,
+        message:"Email and code are required"
+      })
+    }
+    //get user by email
+    const user = await User.findOne({email})
+    if(!user){
+      return res.status(400).json({
+        success:false,
+        message:"User is not found "
+
+      })
+    }
+    if(user.isVerified){
+      return res.status(400).json({
+        success:false,
+        message:"Email is already verified"
+      })
+    }
+    if(user.verificationToken !==code){
+      return res.status(400).json({
+        success:false,
+        message:"Invalid verification code"
+      })
+    }
+    user.isVerified=true;
+    user.verificationToken=undefined;
+    await user.save();
+    res.status(200).json({
+      success:true,
+      message:"Email verified Successfully"
+    }) 
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
+//forgot password 
+export const forgotPassword = async(req,res) =>{
+   
+  try {
+    const user = await User.findOne({email})
+
+    if(!user){
+      return res.status(400).json({
+        success:true,
+        message:"User do not exist"
+      })
+    }
+    //generate the token 
+    const resetToken = await crypto.randomBytes(32).toString("hex")
+
+    //save the token 
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+    await user.save()
+
+    //sending the url to frontend in param
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+    //sending the email
+    await sendEmail({
+      email: user.email,
+      subject: "Reset Password - ApexHome",
+      message: `
+        <h2>Password Reset Request</h2>
+
+        <p>Click below to reset your password:</p>
+
+        <a href="${resetUrl}">
+          Reset Password
+        </a>
+
+        <p>This link expires in 15 minutes.</p>
+      `,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Password reset email sent",
+    });
+
+  } catch (error) {
+     console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+}
+
+// reset api passwpord 
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const { password } = req.body;
+
+    //validate password
+    if (!password || password.length < 8) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 8 characters",
+      });
+    }
+
+    //find user
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpire: {
+        $gt: Date.now(),
+      },
+    });
+
+    //invalid token
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or expired token",
+      });
+    }
+
+    //hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    //update password
+    user.password = hashedPassword;
+
+    //remove reset token
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password reset successful",
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
