@@ -71,7 +71,7 @@ export const registration = async (req, res) => {
       console.error("Failed to send email:", emailError);
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       message: "User registered. Check email for verification code",
       user: {
@@ -232,16 +232,17 @@ export const verifyEmail = async (req,res)=>{
 export const forgotPassword = async(req,res) =>{
    
   try {
+    const { email } = req.body;
     const user = await User.findOne({email})
 
     if(!user){
       return res.status(400).json({
         success:true,
-        message:"User do not exist"
+        message:"User does not exist"
       })
     }
     //generate the token 
-    const resetToken = await crypto.randomBytes(32).toString("hex")
+    const resetToken = crypto.randomBytes(32).toString("hex")
 
     //save the token 
     user.resetPasswordToken = resetToken;

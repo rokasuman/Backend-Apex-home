@@ -1,0 +1,28 @@
+###login 
+POST http://localhost:4000/api/auth/register
+Content-Type: application/json
+
+{
+    "name":"Novita",
+    "email":"roka7362@gmail.com",
+    "password":"123456789",
+    "role":"admin"
+}
+
+###login
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+   "email":"roka7362@gmail.com",
+    "password":"123456789" 
+}
+
+###verify the email
+POST http://localhost:4000/api/auth/verify-email
+Content-Type: application/json
+
+{
+    "email":"roka7362@gmail.com",
+    "code":"1234"
+}
