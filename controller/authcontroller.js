@@ -62,7 +62,7 @@ export const registration = async (req, res) => {
     // Send email
     try {
       await sendEmail({
-        email,
+       to: email,
         subject: "Verify your email - ApexHome",
         message: `<p>Your email verification code is <strong>${verificationToken}</strong></p>
                   <p>Please enter this code to activate your account</p>`,

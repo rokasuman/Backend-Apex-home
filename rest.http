@@ -3,7 +3,7 @@ POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-    "name":"Novita",
+    "name":"Suman",
     "email":"roka7362@gmail.com",
     "password":"123456789",
     "role":"admin"
@@ -24,5 +24,19 @@ Content-Type: application/json
 
 {
     "email":"roka7362@gmail.com",
-    "code":"1234"
+    "code":"871246"
 }
+
+###getMe 
+GET http://localhost:4000/api/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3ODk4MjM0OCwiZXhwIjoxNzc5NTg3MTQ4fQ.Ls9M03u71K_VCdGJ8FHductdrUGJzdMcFV6BpxE1--0
+
+
+###get userprofle 
+GET http://localhost:4000/api/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3ODk4MjM0OCwiZXhwIjoxNzc5NTg3MTQ4fQ.Ls9M03u71K_VCdGJ8FHductdrUGJzdMcFV6BpxE1--0
+
+
+###get public profile
+GET http://localhost:4000/api/user/public/6a091ad95a229db6ed883624
