@@ -14,3 +14,11 @@ export const uploadToCloudinary = (buffer, folder = "general") => {
     streamifier.createReadStream(buffer).pipe(stream);
   });
 };
+//deleting the image 
+export const deleteFromCloudinary = async (public_id) => {
+  try {
+    await cloudinary.v2.uploader.destroy(public_id)
+  } catch (error) {
+    console.log(error);
+  }
+};
