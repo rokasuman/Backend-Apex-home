@@ -284,3 +284,25 @@ export const getAllProperties = async(req,res) =>{
   }
 }
 
+//get property details  
+export const getProperyDetails = async(req,res) =>{
+  try {
+    const {id} = req.params;
+    const property = await Property.findById(id)
+    .populate("seller","name,email,phone,profilePic")
+
+    if(!property){
+      return res.status(404).json({
+        success:false,
+        message:"Property not found"
+      })
+    }
+
+    //get the property views
+  } catch (error) {
+    
+  }
+
+
+}
+
