@@ -40,3 +40,83 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5N
 
 ###get public profile
 GET http://localhost:4000/api/user/public/6a091ad95a229db6ed883624
+
+
+###api to login as a seller 
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+   "email":"roka7362@gmail.com",
+    "password":"123456789" 
+}
+
+###api to add the property by seller 
+POST http://localhost:4000/api/property
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw
+Content-Type: application/json
+
+{
+  "title": "Modern 2BHK Apartment with City View",
+  "description": "A spacious and fully furnished 3BHK apartment located in the heart of the city. Includes modern amenities, parking space, and 24/7 security.",
+  "price": 550000,
+  "city": "Sydney",
+  "area": "Auburn",
+  "pincode": "2150",
+  "propertyType": "apartment",
+  "bhk": "3 BHK",
+  "bathrooms": 2,
+  "areaSize": 1450,
+  "furnishing": "furnished",
+  "amenities": [
+    "Parking",
+    "Swimming Pool",
+    "Gym",
+    "Lift",
+    "Security",
+    "WiFi"
+  ],
+  "status": "sale",
+  "images": []
+}
+
+###api to get the seller propertey
+GET http://localhost:4000/api/property/my
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw
+
+
+###api to update the property by seller 
+PUT http://localhost:4000/api/property/6a198f361bceb5f28a903aea 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw
+Content-Type: application/json
+
+{
+  "title": "Modern 4BHK Apartment with City View",
+  "description": "A spacious and fully furnished 3BHK apartment located in the heart of the city. Includes modern amenities, parking space, and 24/7 security.",
+  "price": 850000,
+  "city": "Sydney",
+  "area": "Lidcombe",
+  "pincode": "2150",
+  "propertyType": "apartment",
+  "bhk": "3 BHK",
+  "bathrooms": 2,
+  "areaSize": 1450,
+  "furnishing": "furnished",
+  "amenities": [
+    "Parking",
+    "Swimming Pool",
+    "Gym",
+    "Lift",
+    "Security",
+    "WiFi"
+  ],
+  "status": "sale",
+  "images": []
+}
+###api to get property count
+GET http://localhost:4000/api/property/count
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw
+
+###api to delete the property 
+DELETE  http://localhost:4000/api/property/6a198f361bceb5f28a903aea 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw

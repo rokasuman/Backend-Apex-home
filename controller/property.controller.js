@@ -2,6 +2,7 @@ import Property from "../models/property.model.js";
 import Inquriy from "../models/inqurey.model.js";
 import { uploadToCloudinary } from "../utlis/uploadToCloudinary.js";
 import { deleteFromCloudinary } from "../utlis/uploadToCloudinary.js";
+import jwt from "jsonwebtoken"
 
 //adding the property
 export const addProperty = async (req, res) => {
@@ -299,10 +300,113 @@ export const getProperyDetails = async(req,res) =>{
     }
 
     //get the property views
+    const vistorId = req.ip;
+    const authHeader = req.header.authorization;
+
+    if(!authHeader && authHeader.startsWith("Bear ")){
+      try {
+        const token = authHeader.split(" ")[1]
+        const decoded = jwt.verify(process.env.JWT_SECRET)
+        vistorId= decoded.id;
+      } catch (error) {
+        
+      }
+    }
+    const isSellerChecking = vistorId === property.seller._id.toString();
+    //only increase with vistor id
+    if(!isSellerChecking && !property.viewedBy.includes(vistorId)){
+      property.views +- 1;
+      property.viewedBy.push(vistorId)
+      await property.save()
+    }
+    //getting the similar property 
+    const similarPropery = await Property.findById({
+      _id:{$ne:property._id},
+      city:property.city,
+      propertyType:property.propertyType,
+      status:property.status
+    })
+      .limit(4)
+      .select(" title price images city area propertyType bhk areaSize status");
+
+      res.json({
+        success:true,
+        property,
+        similarPropery
+      })
+    
   } catch (error) {
+      return res.status(500).json({
+        success:false,
+        message:error.message
+    })
     
   }
+}
 
+//seller dashboard
+export const sellerDashboard = async(req,res) =>{
+  try {
+    const sellerId = req.user._id;
+    const seller= await Property.findById({seller:sellerId})
+   //total property of seller
+    const totalProperty = await Property.countDocuments({seller:sellerId})
+    //active-property of the seller 
+    const activeProperty = await Property.countDocuments({seller:sellerId,status:status})
+    //sold-property
+    const soldProperty = await Property.countDocuments({seller:sellerId,status:sold})
+    //inqurey 
+    const totalInqurey = await Inquriy.countDocuments({seller:sellerId})
+    //total views of the property 
+    const viewData = await Property.aggregate([
+      {$match:{seller:sellerId}},
+      {$group:{_id:null, totalViews: {$sum:"$views"}}},
+    ]);
 
+    //total views 
+    const totalViews = viewData.length > 0 ? viewData[0].totalViews : 0;
+
+    res.json({
+      success:true,
+      stats:{
+        totalProperty,
+        totalInqurey,
+        totalViews,
+        soldProperty,
+        activeProperty
+      }
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+        success:false,
+        message:error.message
+    })
+  }
+}
+
+//get the property count by type
+export const getPropertyCounts = async(req,res)=>{
+  try {
+    const counts = await Property.aggregate([
+      {$match:{status:"sale"}},
+      {$group:{_id:"$propertyType",count:{$sum:1}}}
+    ])
+    const formattedCount = counts.reduce(( acc, curr) =>{
+      acc[curr._id] = curr.count;
+      return acc;
+    },{})
+
+    res.json({
+      success:true,
+      counts:formattedCount
+    })
+  } catch (error) {
+     return res.status(500).json({
+        success:false,
+        message:error.message
+    })
+  }
+  
 }
 
