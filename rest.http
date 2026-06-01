@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
     "name":"Suman",
-    "email":"roka7362@gmail.com",
+    "email":"novahealth74@gmail.com",
     "password":"123456789",
-    "role":"admin"
+    "role":"buyer"
 }
 
 ###login
@@ -14,7 +14,7 @@ POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-   "email":"roka7362@gmail.com",
+   "email":"novahealth74@gmail.com",
     "password":"123456789" 
 }
 
@@ -23,8 +23,8 @@ POST http://localhost:4000/api/auth/verify-email
 Content-Type: application/json
 
 {
-    "email":"roka7362@gmail.com",
-    "code":"871246"
+    "email":"novahealth74@gmail.com",
+    "code":"987669"
 }
 
 ###getMe 
@@ -120,3 +120,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5N
 ###api to delete the property 
 DELETE  http://localhost:4000/api/property/6a198f361bceb5f28a903aea 
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODAwNTkwMjcsImV4cCI6MTc4MDY2MzgyN30.10-hHfkjPjVLLheBS1cu7yexxlfGFP2Oc8Trw1bN4gw
+
+
+###api to get the messge/inquires
+POST http://localhost:4000/api/inquries/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTk5ZjYzZjE1MjhjMWJkNTkzMWRkNCIsInJvbGUiOiJidXllciIsImlhdCI6MTc4MDA2NDIyMSwiZXhwIjoxNzgwNjY5MDIxfQ.qImH4PV8SX2253djX4UnV0QXB87BX5LTVDc_wyQbWYc
+Content-Type: application/json
+
+{
+  "propertyId": "6a1991c41bceb5f28a903aeb",
+  "message": "I am interested"
+}
+###
+PATCH http://localhost:4000/api/inquries/6a19a134f1528c1bd5931dd5/read
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTk5ZjYzZjE1MjhjMWJkNTkzMWRkNCIsInJvbGUiOiJidXllciIsImlhdCI6MTc4MDA2NDIyMSwiZXhwIjoxNzgwNjY5MDIxfQ.qImH4PV8SX2253djX4UnV0QXB87BX5LTVDc_wyQbWYc
+

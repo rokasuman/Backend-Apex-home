@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import authroute from "./routes/auth.routes.js"
 import userRouter from "./routes/user.routes.js"
 import propertyRouter from "./routes/property.routes.js"
+import inquiriesRouter from "./routes/inquries.router.js"
 dotenv.config()
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(cors())
 app.use("/api/auth",authroute)
 app.use("/api/user",userRouter)
 app.use("/api/property",propertyRouter)
+app.use("/api/inquries",inquiriesRouter)
 
 app.get("/", (req, res) => {
     res.send("Api is working")
