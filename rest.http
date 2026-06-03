@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "name":"Suman",
-    "email":"novahealth74@gmail.com",
+    "email":"roka7362@gmail.com",
     "password":"123456789",
     "role":"buyer"
 }
@@ -14,7 +14,7 @@ POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-   "email":"novahealth74@gmail.com",
+   "email":"roka7362@gmail.com",
     "password":"123456789" 
 }
 
@@ -135,3 +135,20 @@ Content-Type: application/json
 PATCH http://localhost:4000/api/inquries/6a19a134f1528c1bd5931dd5/read
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTk5ZjYzZjE1MjhjMWJkNTkzMWRkNCIsInJvbGUiOiJidXllciIsImlhdCI6MTc4MDA2NDIyMSwiZXhwIjoxNzgwNjY5MDIxfQ.qImH4PV8SX2253djX4UnV0QXB87BX5LTVDc_wyQbWYc
 
+
+###adding in the wishlsit 
+POST http://localhost:4000/api/wishlist/6a1991c41bceb5f28a903aeb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODA0OTIyMzksImV4cCI6MTc4MTA5NzAzOX0.FhQTC5gOH3s-1llRyi_HpRB2MIMjTAapdC10HbbKwGA
+Content-Type: application/application/json
+
+{
+  "id":"6a1991c41bceb5f28a903aeb"
+}
+
+###delete the wishlsit 
+DELETE http://localhost:4000/api/wishlist/6a1991c41bceb5f28a903aeb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODA0OTIyMzksImV4cCI6MTc4MTA5NzAzOX0.FhQTC5gOH3s-1llRyi_HpRB2MIMjTAapdC10HbbKwGA
+
+###get the wishlist 
+GET  http://localhost:4000/api/wishlist/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODA0OTIyMzksImV4cCI6MTc4MTA5NzAzOX0.FhQTC5gOH3s-1llRyi_HpRB2MIMjTAapdC10HbbKwGA

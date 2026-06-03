@@ -6,6 +6,8 @@ import authroute from "./routes/auth.routes.js"
 import userRouter from "./routes/user.routes.js"
 import propertyRouter from "./routes/property.routes.js"
 import inquiriesRouter from "./routes/inquries.router.js"
+import wishListRouter from "./routes/wishlist.routes.js"
+
 dotenv.config()
 
 const app = express()
@@ -23,6 +25,7 @@ app.use("/api/auth",authroute)
 app.use("/api/user",userRouter)
 app.use("/api/property",propertyRouter)
 app.use("/api/inquries",inquiriesRouter)
+app.use("/api/wishlist",wishListRouter)
 
 app.get("/", (req, res) => {
     res.send("Api is working")
