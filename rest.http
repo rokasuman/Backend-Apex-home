@@ -152,3 +152,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5N
 ###get the wishlist 
 GET  http://localhost:4000/api/wishlist/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE3ODA0OTIyMzksImV4cCI6MTc4MTA5NzAzOX0.FhQTC5gOH3s-1llRyi_HpRB2MIMjTAapdC10HbbKwGA
+
+###sending the contact 
+POST http://localhost:4000/api/contact/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDkxYWQ5NWEyMjlkYjZlZDg4MzYyNCIsInJvbGUiOiJidXllciIsImlhdCI6MTc4MDQ5NjQ5MywiZXhwIjoxNzgxMTAxMjkzfQ.ZuEczDucqNmpzDTzxITXUYaUKVk3rYDbUfBzR-RoaMs
+Content-Type: application/json
+
+{
+  "name": "Suman",
+  "email": "roka7362@gmail.com",
+  "phone":"123456789",
+  "role":"seller",
+  "message":"Hi there"
+}
