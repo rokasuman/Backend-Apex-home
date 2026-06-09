@@ -8,6 +8,7 @@ import propertyRouter from "./routes/property.routes.js"
 import inquiriesRouter from "./routes/inquries.router.js"
 import wishListRouter from "./routes/wishlist.routes.js"
 import contactRouter from "./routes/contact.routes.js"
+import amdinRouter from "./routes/admin.routes.js"
 
 dotenv.config()
 
@@ -28,6 +29,10 @@ app.use("/api/property",propertyRouter)
 app.use("/api/inquries",inquiriesRouter)
 app.use("/api/wishlist",wishListRouter)
 app.use("/api/contact",contactRouter)
+
+//admin router 
+app.use("/api/admin",amdinRouter)
+
 
 app.get("/", (req, res) => {
     res.send("Api is working")

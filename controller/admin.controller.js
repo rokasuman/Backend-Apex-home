@@ -79,7 +79,7 @@ export const deleteUser = async (req, res) => {
 };
 
 //all the property
-export const getAllProperties = async (req, res) => {
+export const getAllPropertiesAdmin = async (req, res) => {
   try {
     const properties = await Property.find()
       .populate("seller", "name email")
@@ -171,7 +171,7 @@ export const getDashData = async (req, res) => {
       status: "sold",
     });
 
-    return res.status(200).jsom({
+    return res.status(200).json({
       success: true,
       message: "Loading Dash Data",
       totalProperties,
@@ -198,12 +198,14 @@ export const pendingSeller = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Loading all the pending seller",
+    count:pendingSeller.length,
       pendingSeller,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message: error.message,
+    
     });
   }
 };

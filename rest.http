@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
     "name":"Suman",
-    "email":"roka7362@gmail.com",
+    "email":"apexhome15@gmail.com",
     "password":"123456789",
-    "role":"buyer"
+    "role":"admin"
 }
 
 ###login
@@ -14,7 +14,7 @@ POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-   "email":"roka7362@gmail.com",
+   "email":"apexhome15@gmail.com",
     "password":"123456789" 
 }
 
@@ -23,8 +23,8 @@ POST http://localhost:4000/api/auth/verify-email
 Content-Type: application/json
 
 {
-    "email":"novahealth74@gmail.com",
-    "code":"987669"
+    "email":"apexhome15@gmail.com",
+    "code":"296566"
 }
 
 ###getMe 
@@ -165,3 +165,11 @@ Content-Type: application/json
   "role":"seller",
   "message":"Hi there"
 }
+
+###view properties as a admin
+GET http://localhost:4000/api/admin/get-all-properties
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjZiOTIyNjdlMzFjYzE2MDdiZDM1OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MDkyMjczNCwiZXhwIjoxNzgxNTI3NTM0fQ.U7527lF3rS1ynpJ-_UsKFQL9uZ7a1WOouK6rUzdAVKo
+
+###to get all inquries
+GET http://localhost:4000/api/admin/pending-seller
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjZiOTIyNjdlMzFjYzE2MDdiZDM1OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MDkyMjczNCwiZXhwIjoxNzgxNTI3NTM0fQ.U7527lF3rS1ynpJ-_UsKFQL9uZ7a1WOouK6rUzdAVKo
