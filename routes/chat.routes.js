@@ -110,6 +110,44 @@ chatRouter.get("/user",async(req,res)=>{
 })
 
 //to get the message 
+chatRouter.get("/:chatId",async(req,res)=>{
+    try {
+        const {chatId} = req.params;
+        const userId = req.user._id;
+
+        const chat = await Chat.findById(chatId)
+        .populate("messages.sender","name email")
+
+        if(!chat){
+            return res.status(404).json({
+                success:false,
+                message:"Chat not found"
+
+            })
+        }
+
+        //checking if the chat belong to that user 
+        if(
+            chat.buyer.toString() !== userId.toString() && chat.seller.toString() !== userId.toString()
+        ){
+            return res.json({
+                success:false,
+                message:"You are not authorized to view this chat"
+            })
+
+            return res.status(200).json({
+                success:true,
+                message:chat.message
+            })
+        }
+    } catch (error) {
+          return res.status(500).json({
+            success: false,
+            message: "Error fetching messages",
+            error: error.message
+        });
+    }
+})
 
 
 
